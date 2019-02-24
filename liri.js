@@ -2,9 +2,11 @@ require("dotenv").config();
 
 var keys = require("./keys");
 var axios = require("axios");
-var Spotify = require("node-spotify-api");
+// var Spotify = require("node-spotify-api");
 var moment = require("moment");
-var spotify = new Spotify(keys.spotify);
+// var spotify = new Spotify(keys.spotify);
+var spotify = require('spotify');
+
 var fs = require("fs");
 var LiriCommand = process.argv[2];
 var LiriInput = process.argv[3];
@@ -16,6 +18,8 @@ var bandsInTownURL = "https://rest.bandsintown.com/artists/" + LiriInput + "/eve
 Userinputs(LiriCommand, LiriInput);
 
 function Userinputs (LiriCommand, LiriInput){
+    console.log("command:" + LiriCommand);
+    console.log("Input: " + LiriInput);
     switch (LiriCommand) {
             case "concert-this":
               concertThis(LiriInput);
@@ -73,7 +77,7 @@ function Userinputs (LiriCommand, LiriInput){
 
     function spotifyThis(){
         if(LiriInput === undefined){
-            LiriInput = "Ride Of The Valkyries";           
+            LiriInput = "Mr Nobody";           
         }
         spotify.search(
             {type: "track", 
